@@ -1,7 +1,8 @@
 var formidable = require('formidable');
+var fs = require('fs');
 
 exports.upload = function(request, response) {
-	console.log("Rozpoczynam obsługę żądania upload.");
+    console.log("Rozpoczynam obsługę żądania upload.");
     var form = new formidable.IncomingForm();
     form.parse(request, function(error, fields, files) {
         fs.renameSync(files.upload.path, "test.png");
@@ -11,8 +12,18 @@ exports.upload = function(request, response) {
         response.end();
     });
 }
-
-var fs = require('fs');
+/*
+exports.welcome = function(request, response) {
+    console.log("Rozpoczynam obsługę żądania welcome.");
+    response.write("Witaj na stronie startowej!");
+    response.end();
+}
+*/
+exports.error = function(request, response) {
+    console.log("Nie wiem co robić.");
+    response.write("404 :(");
+    response.end();
+}
 
 exports.welcome = function(request, response) {
     console.log("Rozpoczynam obsługę żądania welcome.");
@@ -21,12 +32,6 @@ exports.welcome = function(request, response) {
         response.write(html);
         response.end();
     });
-}
-
-exports.error = function(request, response) {
-    console.log("Nie wiem co robić.");
-    response.write("404 :(");
-    response.end();
 }
 
 exports.show = function(request, response) {
